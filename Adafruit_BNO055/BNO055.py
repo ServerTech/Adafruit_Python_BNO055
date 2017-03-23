@@ -290,7 +290,7 @@ class BNO055(object):
             command[4:] = map(lambda x: x & 0xFF, data)
             resp = self._serial_send(command, ack=ack)
             # Verify register write succeeded if there was an acknowledgement.
-            if resp[0] != 0xEE and resp[1] != 0x01:
+            if ack and resp[0] != 0xEE and resp[1] != 0x01:
                 raise RuntimeError('Register write error: 0x{0}'.format(binascii.hexlify(resp)))
 
     def _write_byte(self, address, value, ack=True):
